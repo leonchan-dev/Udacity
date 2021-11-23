@@ -17,7 +17,7 @@ CORS(app)
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 !! Running this funciton will add one
 '''
-# db_drop_and_create_all()
+db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -150,7 +150,7 @@ def drinks_patch(payload, id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
-@app.route('drinks/<int:drinks_id>', methods=['DELETE'])
+@app.route('/drinks/<int:drinks_id>', methods=['DELETE'])
 @requires_auth('delete:drinks')
 def delete_drink(id, payload):
 
