@@ -1,6 +1,19 @@
 .vscode
 __pycache__
 venv
+frontend/node_modules
+node_modules
+env/
+env
+.env
+venv/
+.venv
+venv/
+ENV/
+env.bak/
+venv.bak/
+env\
+.env\
 
 # OS generated files #
 ######################

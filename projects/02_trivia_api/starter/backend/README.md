@@ -109,3 +109,385 @@ createdb trivia_test
 psql trivia_test < trivia.psql
 python test_flaskr.py
 ```
+
+## API Reference 
+
+The API's used in this application are for sending and recieving data to play a quiz application. Users can do a varaiety of things as will be shown below with the API endpoints such as receive and add questions to the application.
+
+The endpoints are organised around REST.  It accepts form-encoded request bodies and returns JSON-encoded responses.
+
+1. Base URL: http://127.0.0.1:5000
+
+2. Errors: This application  uses conventional HTTP responses to show the success or failure of an API request
+
+```
+HTTP Status Code Summary 
+
+200 - OK
+
+400 - Bad request
+
+402 - Request Failed
+
+404 - Not Found 
+
+500 - Server Error 
+```
+
+3. Endpoints:
+
+GET/categories
+
+General: This returns a dictionary of the available categories and total categories that are used within the quiz from the database.
+Sample: curl http://127.0.0.1:5000/categories 
+
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "success": true,
+  "total_categories": 6
+}
+
+```
+
+GET/questions
+General: This returns a dictionary of the available questions, total questions and total categories that are used within the quiz from the database. The questions are shown in groups of 10.
+Sample: curl http://127.0.0.1:5000/questions 
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "questions": [
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    },
+    {
+      "answer": "George Washington Carver",
+      "category": 4,
+      "difficulty": 2,
+      "id": 12,
+      "question": "Who invented Peanut Butter?"
+    },
+    {
+      "answer": "Lake Victoria",
+      "category": 3,
+      "difficulty": 2,
+      "id": 13,
+      "question": "What is the largest lake in Africa?"
+    },
+    {
+      "answer": "The Palace of Versailles",
+      "category": 3,
+      "difficulty": 3,
+      "id": 14,
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    },
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "One",
+      "category": 2,
+      "difficulty": 4,
+      "id": 18,
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    },
+    {
+      "answer": "Jackson Pollock",
+      "category": 2,
+      "difficulty": 2,
+      "id": 19,
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    }
+  ],
+  "success": true,
+  "total_questions": 18
+}
+```
+
+DELETE/questions/<int:question_id> 
+General: Deletes a questions from the database when you specify which question using its Id. This will return the deleted questions Id, the current questions in the database and the total amount of questions.
+Sample: curl -X DELETE http://127.0.0.1:5000/questions/5
+
+```
+{
+  "deleted": 5,
+  "questions": [
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    },
+    {
+      "answer": "George Washington Carver",
+      "category": 4,
+      "difficulty": 2,
+      "id": 12,
+      "question": "Who invented Peanut Butter?"
+    },
+    {
+      "answer": "Lake Victoria",
+      "category": 3,
+      "difficulty": 2,
+      "id": 13,
+      "question": "What is the largest lake in Africa?"
+    },
+    {
+      "answer": "The Palace of Versailles",
+      "category": 3,
+      "difficulty": 3,
+      "id": 14,
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    },
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "One",
+      "category": 2,
+      "difficulty": 4,
+      "id": 18,
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    },
+    {
+      "answer": "Jackson Pollock",
+      "category": 2,
+      "difficulty": 2,
+      "id": 19,
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    }
+  ],
+  "success": true,
+  "total_questions": 17
+}
+```
+POST/questions/add
+General: This returns a dictionary of the available questions, total questions and total categories that are used within the quiz from the database. The questions are shown in groups of 10.
+Sample: curl -X POST -H "Content-Type: application/json" -d '{"question":"What is 1 + 1", "answer":"2","category":1, "difficulty":1,"id":1}' http://127.0.0.1:5000/add
+
+```
+{
+  "created": 48,
+  "questions": [
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    },
+    {
+      "answer": "George Washington Carver",
+      "category": 4,
+      "difficulty": 2,
+      "id": 12,
+      "question": "Who invented Peanut Butter?"
+    },
+    {
+      "answer": "Lake Victoria",
+      "category": 3,
+      "difficulty": 2,
+      "id": 13,
+      "question": "What is the largest lake in Africa?"
+    },
+    {
+      "answer": "The Palace of Versailles",
+      "category": 3,
+      "difficulty": 3,
+      "id": 14,
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    },
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "One",
+      "category": 2,
+      "difficulty": 4,
+      "id": 18,
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    },
+    {
+      "answer": "Jackson Pollock",
+      "category": 2,
+      "difficulty": 2,
+      "id": 19,
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    }
+  ],
+  "success": true,
+  "total_questions": 18
+```
+POST/questions/search 
+General: This allows you to search for a term and returns a list of questions with that term and total amount of questions and categories.
+Sample: curl -X POST -H "Content-Type: application/json" --data '{"searchTerm": "sky"}' http://127.0.0.1:5000/questions/search
+
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "questions": [
+    {
+      "answer": "Blue",
+      "category": 1,
+      "difficulty": 1,
+      "id": 24,
+      "question": "What colour is the sky?"
+    }
+  ],
+  "success": true,
+  "total_questions": 18
+}
+```
+
+GET /categories/<category_id>
+General: This allows you to get the questions of a certain category. This will also return the total questions and total categories.
+Sample: curl -X GET http://127.0.0.1:5000/categories/3/questions
+
+```
+{
+  "questions": [
+    {
+      "answer": "Lake Victoria",
+      "category": 3,
+      "difficulty": 2,
+      "id": 13,
+      "question": "What is the largest lake in Africa?"
+    },
+    {
+      "answer": "The Palace of Versailles",
+      "category": 3,
+      "difficulty": 3,
+      "id": 14,
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    },
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    }
+  ],
+  "success": true,
+  "total_categories": 6
+}
+
+```
+
+POST/quizzes
+General: This creates a quiz based on the questions and categories inside the database and randomises the questions for the user to play the quiz. The quiz will not include previous questions, if these are specfied inside the request.
+Sample: curl -X POST -H 'Content-Type: application/json' -d '{"previous_questions": [21,22,24,25,45],"quiz_category":{"type":"science","id": "1"}}' http://127.0.0.1:5000/quizzes
+```
+{
+  "current_category": "science",
+  "question": {
+    "answer": "Green",
+    "category": 1,
+    "difficulty": null,
+    "id": 45,
+    "question": "What colour is grass?"
+  },
+  "success": true
+}
+```
