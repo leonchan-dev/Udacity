@@ -1,6 +1,11 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from sqlalchemy import Column, DateTime, Integer, String
+from flask_migrate import Migrate
+#----------------------------------------------------------------------------#
+# App Config.
+#----------------------------------------------------------------------------#
 
 DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')  
 DB_USER = os.getenv('DB_USER', 'postgres')  
@@ -18,7 +23,6 @@ def setup_db(app, database_path=DB_PATH):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    db.create_all()
 
 class Actors(db.Model):
     __tablename__ = 'Actors'
