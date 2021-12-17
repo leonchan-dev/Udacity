@@ -1,5 +1,4 @@
 from flask import Flask, request, abort, jsonify
-from flask_cors import CORS
 from models import *
 
 def paginate_actors(request, selection):
@@ -30,7 +29,6 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    cors = CORS(app)
 
     '''
   @TODO: Set up CORS. Allow '*' for origins.
@@ -135,10 +133,13 @@ def create_app(test_config=None):
     def create_actor():
         body = request.get_json()
 
-        new_actor = body.get('actor', None)
+        new_name = body.get('name', None)
+        new_age = body.get('age', None)
+        new_gender = body.get('gender', None)
 
         try:
-          actor = Actors(actor=new_actor)
+          actor = Actors(name=new_name, age=new_age,
+                          gender=new_gender)
           actor.insert()
 
           selection = Actors.query.all()
@@ -158,10 +159,11 @@ def create_app(test_config=None):
     def create_movie():
         body = request.get_json()
 
-        new_movie = body.get('movie', None)
+        new_title = body.get('title', None)
+        new_releaseDate = body.get('releaseDate', None)
 
         try:
-          movie = Movies(movie=new_movie)
+          movie = Movies(title=new_title, release_date=new_releaseDate)
           movie.insert()
 
           selection = Movies.query.all()
@@ -170,8 +172,8 @@ def create_app(test_config=None):
           return jsonify({
               'success': True,
               'created': movie.id,
-              'actors': current_movies,
-              'total_actors': len(Movies.query.all())
+              'movies': current_movies,
+              'total_movies': len(Movies.query.all())
             })
 
         except:
@@ -241,7 +243,7 @@ def create_app(test_config=None):
 
         except:
             abort(422)
-            
+
     '''
   @TODO:
   Create error handlers for all expected errors
@@ -287,3 +289,6 @@ def create_app(test_config=None):
             "message": "server error"
           }), 500
     return app
+
+
+app = create_app()
