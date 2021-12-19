@@ -63,6 +63,23 @@ def create_app(test_config=None):
          'total_actors': len(Actors.query.all())
         })
 
+    @app.route('/actors/<int:actor_id>', methods=['GET'])
+    def get_actor(actor_id):
+
+        actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
+
+        if (actor is None):
+            abort(404)
+
+        try:
+
+            return jsonify({
+                "success": True,
+                "actor": actor.format()
+            })
+
+        except:
+            abort(422)
 
     @app.route('/movies')
     def get_movies():
@@ -78,6 +95,24 @@ def create_app(test_config=None):
          'total_movies': len(Movies.query.all())
 
         })
+
+    @app.route('/movies/<int:movie_id>', methods=['GET'])
+    def get_movie(movie_id):
+
+        movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
+
+        if (movie is None):
+            abort(404)
+
+        try:
+
+            return jsonify({
+                "success": True,
+                "movie": movie.format(),
+            })
+
+        except:
+            abort(422)
 
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     def delete_actor(actor_id):
@@ -129,7 +164,7 @@ def create_app(test_config=None):
         except:
                 abort(422)
 
-    @app.route('/add-actor', methods=['POST'])
+    @app.route('/add', methods=['POST'])
     def create_actor():
         body = request.get_json()
 
@@ -155,7 +190,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    @app.route('/add-movie', methods=['POST'])
+    @app.route('/add-movies', methods=['POST'])
     def create_movie():
         body = request.get_json()
 
@@ -163,7 +198,7 @@ def create_app(test_config=None):
         new_releaseDate = body.get('releaseDate', None)
 
         try:
-          movie = Movies(title=new_title, release_date=new_releaseDate)
+          movie = Movies(title=new_title, releaseDate=new_releaseDate)
           movie.insert()
 
           selection = Movies.query.all()
@@ -180,7 +215,7 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-    def patch_actors(payload, actor_id):
+    def patch_actors( actor_id):
 
         body = request.get_json()
 

@@ -109,5 +109,5 @@ class Movies(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'release_date': self.releaseDate
+            'releaseDate': self.releaseDate
         }
