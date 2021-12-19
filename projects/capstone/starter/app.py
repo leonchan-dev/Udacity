@@ -18,8 +18,8 @@ def paginate_movies(request, selection):
     start = (page - 1) * MOVIES_PER_PAGE
     end = start + MOVIES_PER_PAGE
 
-    questions = [question.format() for question in selection]
-    current_movies = questions[start:end]
+    movies = [movie.format() for movie in selection]
+    current_movies = movies[start:end]
 
     return current_movies
 
@@ -42,7 +42,7 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Headers',
                              'Content-Type, Authorization, true')
         response.headers.add('Access-Control-Allow-Methods',
-                             'GET, PUT, POST, PATCH, DELETE, OPTIONS')
+                             'GET, POST, PATCH, DELETE, OPTIONS')
         return response
     '''
   @TODO:
@@ -190,7 +190,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    @app.route('/add-movies', methods=['POST'])
+    @app.route('/movies', methods=['POST'])
     def create_movie():
         body = request.get_json()
 
@@ -215,7 +215,10 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-    def patch_actors( actor_id):
+    def patch_actors(actor_id):
+
+        selection = Actors.query.order_by(Actors.id).all()
+        current_actors = paginate_actors(request, selection)
 
         body = request.get_json()
 
@@ -235,9 +238,6 @@ def create_app(test_config=None):
 
             actor.update()
 
-            selection = Actors.query.order_by(Actors.id).all()
-            current_actors = paginate_actors(request, selection)
-
             return jsonify({
                 'success': True,
                 'actors': current_actors,
@@ -247,7 +247,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
+    @app.route('/movies/<int:movie_id>', methods=['POST'])
     def patch_movies(movie_id):
 
         body = request.get_json()
