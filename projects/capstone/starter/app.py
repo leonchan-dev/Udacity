@@ -248,7 +248,7 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-    def patch_movies(payload, movie_id):
+    def patch_movies(movie_id):
 
         body = request.get_json()
 

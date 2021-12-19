@@ -31,7 +31,6 @@ def db_drop_and_create_all():
     db.create_all()
 
 def create_dummy_data():
-    # Get some dummy data into the db
     actor1 = Actors(name='1', age=20, gender='Male')
     actor1.insert()
     actor2 = Actors(name='2', age=30, gender='Female')
@@ -85,7 +84,7 @@ class Movies(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title  = db.Column(db.String)
-    releaseDate = db.Column(db.DateTime, nullable=False)
+    releaseDate = db.Column(db.DateTime)
 
     def __repr__(self):
          return f'<Movies id: {self.id}, title: {self.title}, releaseDate: {self.releaseDate}>'
