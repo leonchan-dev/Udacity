@@ -164,7 +164,7 @@ def create_app(test_config=None):
         except:
                 abort(422)
 
-    @app.route('/add', methods=['POST'])
+    @app.route('/add-actors', methods=['POST'])
     def create_actor():
         body = request.get_json()
 
@@ -190,7 +190,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    @app.route('/movies', methods=['POST'])
+    @app.route('/add-movies', methods=['POST'])
     def create_movie():
         body = request.get_json()
 
@@ -247,7 +247,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    @app.route('/movies/<int:movie_id>', methods=['POST'])
+    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
     def patch_movies(movie_id):
 
         body = request.get_json()
