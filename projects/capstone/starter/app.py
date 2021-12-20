@@ -1,5 +1,7 @@
 from flask import Flask, request, abort, jsonify
 from models import *
+#from flask_cors import CORS
+
 
 def paginate_actors(request, selection):
     page = request.args.get('page', 1, type=int)
@@ -29,11 +31,11 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-
+    #CORS(app)
     '''
   @TODO: Set up CORS. Allow '*' for origins.
   '''
-
+ 
     '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
@@ -158,7 +160,7 @@ def create_app(test_config=None):
                 'success': True,
                 'deleted': movie_id,
                 'actors': current_movies,
-                'total_actors': len(Movies.query.all())
+                'total_movies': len(Movies.query.all())
                 })
 
         except:
@@ -198,9 +200,10 @@ def create_app(test_config=None):
         new_releaseDate = body.get('releaseDate', None)
 
         try:
-          movie = Movies(title=new_title, releaseDate=new_releaseDate)
-          movie.insert()
+          movie = Movies(title=new_title, 
+                         releaseDate=new_releaseDate)
 
+          movie.insert()
           selection = Movies.query.all()
           current_movies = paginate_movies(request, selection)
 
@@ -233,8 +236,10 @@ def create_app(test_config=None):
             actor = Actors.query.filter(
                 Actors.id == actor_id).one_or_none()
 
-            if actor is None:
-                abort(404)    
+            
+            actor.name = new_name
+            actor.age = new_age
+            actor.gender = new_gender    
 
             actor.update()
 
@@ -262,8 +267,8 @@ def create_app(test_config=None):
             movie = Movies.query.filter(
                 Movies.id == movie_id).one_or_none()
 
-            if movie is None:
-                abort(404)  
+            movie.title = new_title
+            movie.release_date = new_releaseDate
 
             movie.update()
 

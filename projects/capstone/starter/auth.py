@@ -7,7 +7,7 @@ from flask import request, _request_ctx_stack, abort
 
 AUTH0_DOMAIN = 'dev-fwwfme-j.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'drinks'
+API_AUDIENCE = 'Roles'
 
 ## AuthError Exception
 '''
