@@ -1,6 +1,7 @@
 from flask import Flask, request, abort, jsonify
 from models import *
 #from flask_cors import CORS
+#from auth import AuthError, requires_auth
 
 
 def paginate_actors(request, selection):
@@ -35,7 +36,7 @@ def create_app(test_config=None):
     '''
   @TODO: Set up CORS. Allow '*' for origins.
   '''
- 
+
     '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
