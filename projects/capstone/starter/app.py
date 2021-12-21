@@ -1,7 +1,7 @@
 from flask import Flask, request, abort, jsonify
 from models import *
 #from flask_cors import CORS
-#from auth import AuthError, requires_auth
+from auth import AuthError, requires_auth
 
 
 def paginate_actors(request, selection):
@@ -53,7 +53,8 @@ def create_app(test_config=None):
   for all available categories.
   '''
     @app.route('/actors')
-    def get_actors():
+    @requires_auth('get:actors')
+    def get_actors(payload):
         selection = Actors.query.order_by(Actors.id).all()
         current_actors = paginate_actors(request, selection)
 
@@ -67,7 +68,8 @@ def create_app(test_config=None):
         })
 
     @app.route('/actors/<int:actor_id>', methods=['GET'])
-    def get_actor(actor_id):
+    @requires_auth('get:actors')
+    def get_actor(actor_id, payload):
 
         actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
 
@@ -85,7 +87,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/movies')
-    def get_movies():
+    @requires_auth('get:movies')
+    def get_movies(payload):
         selection = Movies.query.order_by(Movies.id).all()
         current_movies = paginate_movies(request, selection)
 
@@ -100,7 +103,8 @@ def create_app(test_config=None):
         })
 
     @app.route('/movies/<int:movie_id>', methods=['GET'])
-    def get_movie(movie_id):
+    @requires_auth('get:movies')
+    def get_movie(movie_id, payload):
 
         movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
 
@@ -118,7 +122,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
-    def delete_actor(actor_id):
+    @requires_auth('delete:actors')
+    def delete_actor(actor_id, payload):
 
         selection = Actors.query.order_by(Actors.id).all()
         current_actors = paginate_actors(request, selection)
@@ -143,7 +148,8 @@ def create_app(test_config=None):
                 abort(422)
 
     @app.route('/movies/<int:movie_id>', methods=['DELETE'])
-    def delete_movie(movie_id):
+    @requires_auth('delete:movies')
+    def delete_movie(movie_id, payload):
 
         selection = Movies.query.order_by(Movies.id).all()
         current_movies = paginate_movies(request, selection)
@@ -168,7 +174,8 @@ def create_app(test_config=None):
                 abort(422)
 
     @app.route('/add-actors', methods=['POST'])
-    def create_actor():
+    @requires_auth("post:actors")
+    def create_actor(payload):
         body = request.get_json()
 
         new_name = body.get('name', None)
@@ -194,7 +201,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/add-movies', methods=['POST'])
-    def create_movie():
+    @requires_auth("post:movies")
+    def create_movie(payload):
         body = request.get_json()
 
         new_title = body.get('title', None)
@@ -219,7 +227,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-    def patch_actors(actor_id):
+    @requires_auth('patch:actors')
+    def patch_actors(actor_id, payload):
 
         selection = Actors.query.order_by(Actors.id).all()
         current_actors = paginate_actors(request, selection)
@@ -254,7 +263,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-    def patch_movies(movie_id):
+    @requires_auth('patch:movies')
+    def patch_movies(movie_id, payload):
 
         body = request.get_json()
 
@@ -329,7 +339,15 @@ def create_app(test_config=None):
             "error": 500,
             "message": "server error"
           }), 500
-    return app
 
+    @app.errorhandler(AuthError) #Needs checking
+    def handle_auth_error(ex):
+        """
+        Receive the raised authorization error and propagates it as response
+        """
+        response = jsonify(ex.error)
+        response.status_code = ex.status_code
+        return response
+    return app
 
 app = create_app()
