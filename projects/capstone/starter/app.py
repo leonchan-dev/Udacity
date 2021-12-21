@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
 from models import *
-#from flask_cors import CORS
+from flask_cors import CORS
 from auth import AuthError, requires_auth
 
 
@@ -32,7 +32,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    #CORS(app)
+    CORS(app)
     '''
   @TODO: Set up CORS. Allow '*' for origins.
   '''
