@@ -8,7 +8,7 @@ from app import create_app
 from models import *
 
 class TriviaTestCase(unittest.TestCase):
-    """This class represents the trivia test case"""
+    """This class represents the trivia test case TEST"""
 
     def setUp(self):
         """Define test variables and initialize app."""
