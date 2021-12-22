@@ -1,1 +1,1 @@
-
+export DATABASE_URL = 'postgresql://postgres:Projecta2008@localhost:5432/castingagency'
