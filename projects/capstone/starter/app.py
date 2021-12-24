@@ -123,7 +123,7 @@ def create_app(test_config=None):
 
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actors')
-    def delete_actor(actor_id, payload):
+    def delete_actor(payload, actor_id):
 
         selection = Actors.query.order_by(Actors.id).all()
         current_actors = paginate_actors(request, selection)
@@ -149,19 +149,19 @@ def create_app(test_config=None):
 
     @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movies')
-    def delete_movie(movie_id, payload):
+    def delete_movie(payload, movie_id):
 
         selection = Movies.query.order_by(Movies.id).all()
         current_movies = paginate_movies(request, selection)
 
         try:
-            actor = Movies.query.filter(
+            movie = Movies.query.filter(
                 Movies.id == movie_id).one_or_none()
 
-            if actor is None:
+            if movie is None:
                 abort(404)
 
-            actor.delete()
+            movie.delete()
 
             return jsonify({
                 'success': True,
@@ -228,7 +228,7 @@ def create_app(test_config=None):
 
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
     @requires_auth('patch:actors')
-    def patch_actors(actor_id, payload):
+    def patch_actors(payload, actor_id):
 
         selection = Actors.query.order_by(Actors.id).all()
         current_actors = paginate_actors(request, selection)
@@ -264,7 +264,7 @@ def create_app(test_config=None):
 
     @app.route('/movies/<int:movie_id>', methods=['PATCH'])
     @requires_auth('patch:movies')
-    def patch_movies(movie_id, payload):
+    def patch_movies(payload, movie_id):
 
         body = request.get_json()
 
