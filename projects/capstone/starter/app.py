@@ -69,7 +69,7 @@ def create_app(test_config=None):
 
     @app.route('/actors/<int:actor_id>', methods=['GET'])
     @requires_auth('get:actors')
-    def get_actor(actor_id, payload):
+    def get_actor(payload, actor_id):
 
         actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
 
@@ -104,7 +104,7 @@ def create_app(test_config=None):
 
     @app.route('/movies/<int:movie_id>', methods=['GET'])
     @requires_auth('get:movies')
-    def get_movie(movie_id, payload):
+    def get_movie(payload, movie_id):
 
         movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
 
