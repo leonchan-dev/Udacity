@@ -125,7 +125,7 @@ patch:movies
 post:actors	
 post:movies
 ```
-###  8. Documentation of API behavior and RBAC controls
+###  8. Documentation of API behavior
 
 #### Endpoints
 
@@ -239,3 +239,21 @@ curl -s -H "Authorization: Bearer {TOKEN}}" -H "Content-Type: application/json" 
 
 Patched Movie: {"movie":{"id":57,"releaseDate":"Sat, 01 Jan 2022 00:00:00 GMT","title":"PATCHED"},"success":true}
 ```
+
+###  9.Hosting Instructions
+
+We can deploy our application to a cloud platform. We will be using Heroku for this purpose. The instructions for deploying are as follows
+
+- First create an account if you don't already have one [here]https://signup.heroku.com/
+- Download/Install Heroku CLI. You can use the [official installation instructions]https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+- After it has downloaded/installed. Log into Heroku with the command:
+```
+heroku login -i
+```
+- With your flask app, push to your own Github repo
+- Make sure you have installed the requirements from the requirement.txt file
+- Make a procfile file in the root directory which will have the command to start the app using Gunicorn:
+``` 
+web: gunicorn app:app
+```
+- Make a runtime.txt file that specifies the Python version that will be used.
