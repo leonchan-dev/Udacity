@@ -166,7 +166,7 @@ def create_app(test_config=None):
             return jsonify({
                 'success': True,
                 'deleted': movie_id,
-                'actors': current_movies,
+                'movies': current_movies,
                 'total_movies': len(Movies.query.all())
                 })
 

@@ -87,7 +87,7 @@ Auth0 was used by the website Auth0. This site allowed for the created of a logi
 
 With permission to API's:
 
-```bash
+```
 get:actors
 get:movies
 ```
@@ -95,7 +95,7 @@ get:movies
 
 With permission to API's:
 
-```bash
+```
 delete:actor	
 delete:actors		
 get:actors	
@@ -108,7 +108,7 @@ post:actors
 
 With permission to API's:
 
-```bash
+```
 delete:actor		
 delete:actors		
 delete:movies		
@@ -151,4 +151,85 @@ curl -s -H "Authorization: Bearer {TOKEN}" -X GET http://127.0.0.1:5000/actors
 
 ```
 {"actors":[{"age":20,"gender":"Male","id":1,"name":"Test1"},{"age":30,"gender":"Male","id":5,"name":"actor3"},{"age":20,"gender":"Male","id":12,"name":"Test"},{"age":20,"gender":"Male","id":13,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":14,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":15,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":16,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":17,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":18,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":19,"name":"Test"}],"success":true,"total_actors":46}
+```
+
+#### GET Request /actors/1 - This gets a specific actor from the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -X GET http://127.0.0.1:5000/actors/1
+
+```
+{"actor":{"age":20,"gender":"Male","id":1,"name":"Test1"},"success":true}
+```
+
+#### DELETE Request /actors/30 - This deletes a specific actor from the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -X DELETE http://127.0.0.1:5000/actors/1
+
+```
+{"actors":[{"age":20,"gender":"Male","id":1,"name":"Test1"},{"age":30,"gender":"Male","id":5,"name":"actor3"},{"age":20,"gender":"Male","id":12,"name":"Test"},{"age":20,"gender":"Male","id":13,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":14,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":15,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":16,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":17,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":18,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":19,"name":"Test"}],"deleted":30,"success":true,"total_actors":46}
+```
+
+#### POST Request /add-actors - This adds a new actor to the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -H "Content-Type: application/json" -d '{"name": "CURLPOST", "age": 10, "gender": "Male"}' -X POST http://127.0.0.1:5000/add-actors
+
+```
+{"actors":[{"age":30,"gender":"Male","id":5,"name":"actor3"},{"age":20,"gender":"Male","id":13,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":14,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":15,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":16,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":17,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":18,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":19,"name":"Test"},{"age":20,"gender":"Male","id":20,"name":"Test"},{"age":20,"gender":"Male","id":26,"name":"Test"}],"created":64,"success":true,"total_actors":47}
+
+Added Actor: {"actor":{"age":10,"gender":"Male","id":64,"name":"CURLPOST"},"success":true}
+```
+
+#### PATCH Request /actors/64 - This updates an actor in the database with new details
+
+curl -s -H "Authorization: Bearer {TOKEN}}" -H "Content-Type: application/json" -d '{"name": "PATCHED", "age": 
+10, "gender": "Male"}' -X PATCH http://127.0.0.1:5000/actors/64
+
+```
+{"actors":[{"age":20,"gender":"Male","id":1,"name":"Test1"},{"age":30,"gender":"Male","id":5,"name":"actor3"},{"age":20,"gender":"Male","id":12,"name":"Test"},{"age":20,"gender":"Male","id":13,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":14,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":15,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":16,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":17,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":18,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":19,"name":"Test"}],"success":true,"total_actors":49}
+
+Patched Actor: {"actor":{"age":10,"gender":"Male","id":64,"name":"PATCHED"},"success":true}
+```
+
+#### GET Request /movies - This gets the movies from the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -X GET http://127.0.0.1:5000/movies
+
+```
+{"movies":[{"id":1,"releaseDate":"Wed, 01 Dec 2021 00:00:00 GMT","title":"Test"},{"id":2,"releaseDate":"Tue, 21 Dec 2021 00:00:00 GMT","title":"HELLO"},{"id":26,"releaseDate":"Thu, 03 Mar 2022 00:00:00 GMT","title":"TEST"},{"id":28,"releaseDate":"Thu, 03 Mar 2022 00:00:00 GMT","title":"TESTING"},{"id":36,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":37,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":38,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":42,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"},{"id":45,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"},{"id":47,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"}],"success":true,"total_movies":19}
+```
+
+#### GET Request /movies/1 - This gets a specific movie from the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -X GET http://127.0.0.1:5000/movies/1
+
+```
+{"movie":{"id":1,"releaseDate":"Wed, 01 Dec 2021 00:00:00 GMT","title":"Test"},"success":true}
+```
+
+#### DELETE Request /movies/46 - This deletes a specific movie from the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -X DELETE http://127.0.0.1:5000/movies/49
+
+```
+{"deleted":49,"movies":[{"id":1,"releaseDate":"Wed, 01 Dec 2021 00:00:00 GMT","title":"Test"},{"id":2,"releaseDate":"Tue, 21 Dec 2021 00:00:00 GMT","title":"HELLO"},{"id":26,"releaseDate":"Thu, 03 Mar 2022 00:00:00 GMT","title":"TEST"},{"id":28,"releaseDate":"Thu, 03 Mar 2022 00:00:00 GMT","title":"TESTING"},{"id":36,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":37,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":38,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":42,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"},{"id":45,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"},{"id":49,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"}],"success":true,"total_movies":16}
+```
+
+#### POST Request /add-movies - This adds a new movie to the database
+
+curl -s -H "Authorization: Bearer {TOKEN}" -H "Content-Type: application/json" -d '{"title": "CURLPOSTMOVIE", "releaseDate": "2022-01-01"}' -X POST http://127.0.0.1:5000/add-movies
+
+```
+{"created":57,"movies":[{"id":26,"releaseDate":"Thu, 03 Mar 2022 00:00:00 GMT","title":"TEST"},{"id":28,"releaseDate":"Thu, 03 Mar 2022 00:00:00 GMT","title":"TESTING"},{"id":2,"releaseDate":"Tue, 21 Dec 2021 00:00:00 GMT","title":"HELLO"},{"id":36,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":37,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":38,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"What colour is grass?Test"},{"id":42,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"},{"id":45,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"},{"id":1,"releaseDate":"Wed, 01 Dec 2021 00:00:00 GMT","title":"Test"},{"id":50,"releaseDate":"Fri, 03 Dec 2021 00:00:00 GMT","title":"Test"}],"success":true,"total_movies":17}
+
+Added Movie: {"movie":{"id":57,"releaseDate":"Sat, 01 Jan 2022 00:00:00 GMT","title":"CURLPOSTMOVIE"},"success":true}c
+```
+
+#### PATCH Request /movies/57- This updates an actor in the database with new details
+
+curl -s -H "Authorization: Bearer {TOKEN}}" -H "Content-Type: application/json" -d '{"title": "PATCHED", "releaseDate": "2022-01-01"}' -X PATCH http://127.0.0.1:5000/movies/57
+
+```
+{"actors":[{"age":20,"gender":"Male","id":1,"name":"Test1"},{"age":30,"gender":"Male","id":5,"name":"actor3"},{"age":20,"gender":"Male","id":12,"name":"Test"},{"age":20,"gender":"Male","id":13,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":14,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":15,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":16,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":17,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":18,"name":"TestWhat colour is grass?"},{"age":20,"gender":"Male","id":19,"name":"Test"}],"success":true,"total_actors":49}
+
+Patched Movie: {"movie":{"id":57,"releaseDate":"Sat, 01 Jan 2022 00:00:00 GMT","title":"PATCHED"},"success":true}
 ```
