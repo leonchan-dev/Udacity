@@ -85,6 +85,7 @@ Auth0 was used by the website Auth0. This site allowed for the created of a logi
 
 #Casting Assistant
 
+- Can view actors and movies
 With permission to API's:
 
 ```
@@ -93,6 +94,9 @@ get:movies
 ```
 #Casting Director
 
+- All permissions a Casting Assistant has and…
+- Add or delete an actor from the database
+- Modify actors or movie
 With permission to API's:
 
 ```
@@ -106,6 +110,8 @@ post:actors
 ```
 #Executive Producer
 
+- All permissions a Casting Director has and…
+- Add or delete a movie from the database
 With permission to API's:
 
 ```
