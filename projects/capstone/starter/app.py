@@ -14,7 +14,9 @@ def paginate_actors(request, selection):
 
     return current_actors
 
+
 ACTORS_PER_PAGE = 10
+
 
 def paginate_movies(request, selection):
     page = request.args.get('page', 1, type=int)
@@ -26,10 +28,11 @@ def paginate_movies(request, selection):
 
     return current_movies
 
+
 MOVIES_PER_PAGE = 10
 
+
 def create_app(test_config=None):
-    # create and configure the app
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
@@ -52,7 +55,7 @@ def create_app(test_config=None):
   Create an endpoint to handle GET requests
   for all available categories.
   '''
-    @app.route('/actors')
+    @app.route('/actors', methods=['GET'])
     @requires_auth('get:actors')
     def get_actors(payload):
         selection = Actors.query.order_by(Actors.id).all()
@@ -86,7 +89,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    @app.route('/movies')
+    @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):
         selection = Movies.query.order_by(Movies.id).all()
@@ -183,14 +186,14 @@ def create_app(test_config=None):
         new_gender = body.get('gender', None)
 
         try:
-          actor = Actors(name=new_name, age=new_age,
-                          gender=new_gender)
-          actor.insert()
+            actor = Actors(name=new_name, age=new_age,
+                           gender=new_gender)
+            actor.insert()
 
-          selection = Actors.query.all()
-          current_actors = paginate_actors(request, selection)
+            selection = Actors.query.all()
+            current_actors = paginate_actors(request, selection)
 
-          return jsonify({
+            return jsonify({
               'success': True,
               'created': actor.id,
               'actors': current_actors,
@@ -209,14 +212,14 @@ def create_app(test_config=None):
         new_releaseDate = body.get('releaseDate', None)
 
         try:
-          movie = Movies(title=new_title, 
-                         releaseDate=new_releaseDate)
+            movie = Movies(title=new_title,
+                           releaseDate=new_releaseDate)
 
-          movie.insert()
-          selection = Movies.query.all()
-          current_movies = paginate_movies(request, selection)
+            movie.insert()
+            selection = Movies.query.all()
+            current_movies = paginate_movies(request, selection)
 
-          return jsonify({
+            return jsonify({
               'success': True,
               'created': movie.id,
               'movies': current_movies,
@@ -246,10 +249,9 @@ def create_app(test_config=None):
             actor = Actors.query.filter(
                 Actors.id == actor_id).one_or_none()
 
-            
             actor.name = new_name
             actor.age = new_age
-            actor.gender = new_gender    
+            actor.gender = new_gender
 
             actor.update()
 
@@ -340,7 +342,7 @@ def create_app(test_config=None):
             "message": "server error"
           }), 500
 
-    @app.errorhandler(AuthError) #Needs checking
+    @app.errorhandler(AuthError)
     def handle_auth_error(ex):
         """
         Receive the raised authorization error and propagates it as response
@@ -349,5 +351,6 @@ def create_app(test_config=None):
         response.status_code = ex.status_code
         return response
     return app
+
 
 app = create_app()

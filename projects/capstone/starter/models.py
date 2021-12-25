@@ -9,12 +9,13 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')  #May have to delete or rework this part of the code if migrate doesn't work with this
-DB_USER = os.getenv('DB_USER', 'postgres')  
-DB_PASSWORD = os.getenv('DB_PASSWORD', 'Projecta2008')  
-DB_NAME = os.getenv('DB_NAME', 'castingagency')  
+DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')
+DB_USER = os.getenv('DB_USER', 'postgres')
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'Projecta2008')
+DB_NAME = os.getenv('DB_NAME', 'castingagency')
 DB_PATH = 'postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
 db = SQLAlchemy()
+
 
 def setup_db(app, database_path=DB_PATH):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
@@ -23,12 +24,15 @@ def setup_db(app, database_path=DB_PATH):
     db.init_app(app)
     db.create_all()
 
+
 def db_create_all():
     db.create_all()
+
 
 def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
+
 
 def create_dummy_data():
     actor1 = Actors(name='1', age=20, gender='Male')
@@ -44,14 +48,15 @@ def create_dummy_data():
     movie3 = Movies(title='Movie3', releaseDate='2021-12-03')
     movie3.insert()
 
+
 class Actors(db.Model):
     __tablename__ = 'Actors'
 
     id = db.Column(db.Integer, primary_key=True)
-    name  = db.Column(db.String)
+    name = db.Column(db.String)
     age = db.Column(db.Integer)
     gender = db.Column(db.String(120))
-    
+
     def __repr__(self):
         return f'<Actors id: {self.id}, name: {self.name}, age: {self.age}, gender: {self.gender}>'
 
@@ -79,16 +84,17 @@ class Actors(db.Model):
             'gender': self.gender
         }
 
+
 class Movies(db.Model):
     __tablename__ = 'Movies'
 
     id = db.Column(db.Integer, primary_key=True)
-    title  = db.Column(db.String)
+    title = db.Column(db.String)
     releaseDate = db.Column(db.DateTime)
 
     def __repr__(self):
-         return f'<Movies id: {self.id}, title: {self.title}, releaseDate: {self.releaseDate}>'
-    
+        return f'<Movies id: {self.id}, title: {self.title}, releaseDate: {self.releaseDate}>'
+
     def __init__(self, title, releaseDate):
         self.title = title
         self.releaseDate = releaseDate
