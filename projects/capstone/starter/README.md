@@ -121,7 +121,7 @@ post:movies
 ```
 ###  8. Documentation of API behavior and RBAC controls
 
-#Endpoints
+# Endpoints
 
 The endpoints are organised around REST.  It accepts form-encoded request bodies and returns JSON-encoded responses.
 
@@ -145,7 +145,7 @@ HTTP Status Code Summary
 403 - Unauthorised
 ```
 
-#GET Request /actors - This gets the actors from the database
+# GET Request /actors - This gets the actors from the database
 
 curl -s -H "Authorization: Bearer {TOKEN}" -X GET http://127.0.0.1:5000/actors
 
