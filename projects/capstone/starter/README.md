@@ -77,7 +77,44 @@ export FLASK_ENV=development # enables debug mode
 flask run --reload # Using reload will let Flask know to refresh the application everytime a change is made
 ```
 
-### Detailed instructions for scripts to set up authentication, install any project dependencies and run the development server
+### Auth0 Access and Authorisation
+
+Auth0 was used by the website Auth0. This site allowed for the created of a login page for a single page application and also allowed for creation of a JWT token which gave permissions and access to API endpoints to specific roles that were assigned to users. These were also created in Auth0. The roles and their corresponding permissions were:
+
+#Casting Assistant
+
+With permission to API's:
+
+get:actors
+get:movies
+
+#Casting Director
+
+With permission to API's:
+
+delete:actor	
+delete:actors		
+get:actors	
+get:movies	
+patch:actors	
+patch:movies	
+post:actors
+
+#Executive Producer
+
+With permission to API's:
+
+delete:actor		
+delete:actors		
+delete:movies		
+get:actors		
+get:movies		
+patch:actors	
+patch:movies	
+post:actors	
+post:movies
+
+
 
 ### Documentation of API behavior and RBAC controls
 
