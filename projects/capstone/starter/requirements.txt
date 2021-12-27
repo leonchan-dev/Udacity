@@ -17,6 +17,7 @@ Mako==1.1.6
 MarkupSafe==2.0.1
 psycopg2-binary==2.9.2
 pyasn1==0.4.8
+pycodestyle==2.8.0
 python-jose==3.3.0
 rsa==4.8
 six==1.16.0
