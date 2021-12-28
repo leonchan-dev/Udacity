@@ -257,3 +257,30 @@ heroku login -i
 web: gunicorn app:app
 ```
 - Make a runtime.txt file that specifies the Python version that will be used.
+- Create an App in Heroku Cloud
+
+```
+heroku create [my-app-name] --buildpack heroku/python
+```
+- Add PostgreSQL addon for our database
+
+```
+heroku addons:create heroku-postgresql:hobby-dev --app [my-app-name]
+```
+
+You must then look into "Settings" inside your application on Heroku and "Config Vars". You should see a "DATABASE_URL" var. This should be put into your DB_PATH in models.py
+
+- Populating the database in Heroku
+
+Now we have our database in Heroku and have connected to it in our code. We must now populate it with our data. To do this, navigate to the "More" button on your application page. Select "run console" button. Then type "bash". After it loads up, type "flask shell" and an interpreter should appear and let you enter in the commands for populating the database.
+
+```
+export FLASK_ENV="development"
+export FLASK_APP="app"
+flask shell
+from models import setup_db, Actors, Movies, db_drop_and_create_all, create_dummy_data
+db_drop_and_create_all()
+create_dummy_data()
+```
+
+Once these have been entered, your database on Heroku should be populated and can be checked by clicking on the database inside Heroku to see its information.

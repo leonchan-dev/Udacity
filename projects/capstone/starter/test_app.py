@@ -19,9 +19,9 @@ class TriviaTestCase(unittest.TestCase):
         self.database_path = 'postgresql://postgres:Projecta2008@localhost:5432/castingagency'
         setup_db(self.app, self.database_path)
 
-        self.casting_assistant_token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ill1M0dwWU1QMjlNSTFSd1FkUF8tTCJ9.eyJpc3MiOiJodHRwczovL2Rldi1md3dmbWUtai51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjE5YTU0ZTFhZjA3YjMwMDcxODhiNTI3IiwiYXVkIjoiUm9sZXMiLCJpYXQiOjE2NDA2MTI3NTgsImV4cCI6MTY0MDY5OTE1OCwiYXpwIjoiZVZiTWlFaXdGQ21IOHdzYnN4YjQwM3hKWWJyaEpNd0ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.Vo3pSQ83aMyekpV3ANMBKvVsSOfiDBTePgKHt4SgxZg_olfTP-F8-YsznMqYu3-6Cw7oGOTn6seUkZrjAj6lbigKSWPlq9PT9LZZNEv_a5ahTqUZXGj0qJkMN4gOP8Torq9PWOxmUa8s0JyYsajNV9kAV47vhIuQOuYscCFjq6BOA9HPZpjO9rXtlIRig9hxeBla3YcMzkeqC3Z1mjF94nXXIJwjM5LjKYcHDfJfCJTRwMlnUFD9d2-YAGRxiEwQoxcNCdDzjKHq9X9CacdnI386I6edaNfGDDpOEBu1iLxn6AqDA3vBhlkoeAYczNmqGJJz18JvoSdLCmFhR4Iq4g'
-        self.casting_director_token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ill1M0dwWU1QMjlNSTFSd1FkUF8tTCJ9.eyJpc3MiOiJodHRwczovL2Rldi1md3dmbWUtai51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjFjMGE3NjNmNjRkNGEwMDcyYjAwYjE4IiwiYXVkIjoiUm9sZXMiLCJpYXQiOjE2NDA2MTI3MTEsImV4cCI6MTY0MDY5OTExMSwiYXpwIjoiZVZiTWlFaXdGQ21IOHdzYnN4YjQwM3hKWWJyaEpNd0ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvciIsImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.awEJI2w3HnU7Kx5pbECPpY8f9pSIP76CWebZEoKYeaQZ1ivp9GNMr6nH5IyEVKHlMRHjnBlNuvfrvsU8uwg7qRdowCk4rAnv0zCCUBOv9fMlLbJOni09El-y-3imZDA4lLFPnRw7ZOmcGoKqGrXkHOfH2-ttCyaGX6-yjeO5dbHFpZXvCa7sygjsvkFIiHoRyfv8eHkZI7UQCY6LKyK9ycipPhNYbriW2hupEzSyjvJVSVXvm3TcoC58QKRkTsMGiczkk8Hd2LVa8rUyMONWXc1-RVx1lUfa9vRMqHdlD__-AR3v_7bRpw6sfbe3yYeXq_4PGkVnWIurebb1kGPc8g'
-        self.executive_producer_token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ill1M0dwWU1QMjlNSTFSd1FkUF8tTCJ9.eyJpc3MiOiJodHRwczovL2Rldi1md3dmbWUtai51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjE5YTRjNmFhYjc5YzkwMDcxM2M1YTY4IiwiYXVkIjoiUm9sZXMiLCJpYXQiOjE2NDA2MTI4MDMsImV4cCI6MTY0MDY5OTIwMywiYXpwIjoiZVZiTWlFaXdGQ21IOHdzYnN4YjQwM3hKWWJyaEpNd0ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvciIsImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.NAhPzzfhdV9-ZP4aLhKgU42fkV8kBqBPgui0JSNqLBnVW-BVoJRw2JbCqoMrNWyKoFOfgUvl0zfYJIO4b7KaSEDlrrHMTch5u7FV25HipfWkeF2Fg0NaKq78oIZgWDwunx0JryaYYhjfcIWjdF4DUWUiwyt4RU8QaktaG-GMiFH3HePHA4Un3Nxb6K1xhTarssHFhmM2v9H22nIDJMUz0WHtOoRRhlBgU8t8sSJt0XcZ1l5m-JyQAHFj32-d_MLtpkQ1oaJarVmDVGudbi7DQapxIdFb54soN72v4GWR7uUE42kyN3l6bbYOKwF7CbAw0Iuc4WTy0uyafPfB9nZJrw'
+        self.casting_assistant_token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ill1M0dwWU1QMjlNSTFSd1FkUF8tTCJ9.eyJpc3MiOiJodHRwczovL2Rldi1md3dmbWUtai51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjE5YTU0ZTFhZjA3YjMwMDcxODhiNTI3IiwiYXVkIjoiUm9sZXMiLCJpYXQiOjE2NDA3MDgzMTEsImV4cCI6MTY0MDc5NDcxMSwiYXpwIjoiZVZiTWlFaXdGQ21IOHdzYnN4YjQwM3hKWWJyaEpNd0ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.FM0dt-fH44eA2ACMHu3ghq2RtBAGP9HjCYZOX-C_I51nlaNJ84srlh5H_61LjtYiRibO8hNhyL2F0JiidkxgeI5NO_yG-G0D1xWsg_gUlOKbnRRGWLfX7hMLuZ5nBhogcjQLkjJt6MMFlyeRmmApE4XpqFmjJQLciGJXX6R3i3uGpxgBWJoERQh54PLgkz4YEholl34AxiUTAnxcKmPFXMC_8fo6h4mRdPm2BWbkR1ZpReyoSJkOf_0rLovZYcSS9kQpTDwQmeoEuFMYxvEV5vqNRb6X1jLPmMI8vsQPgDtWCCA_KmypeC3G01ao9JX13_EJr2CxC9FXW7AikeVgwg'
+        self.casting_director_token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ill1M0dwWU1QMjlNSTFSd1FkUF8tTCJ9.eyJpc3MiOiJodHRwczovL2Rldi1md3dmbWUtai51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjFjMGE3NjNmNjRkNGEwMDcyYjAwYjE4IiwiYXVkIjoiUm9sZXMiLCJpYXQiOjE2NDA3MDgyNDgsImV4cCI6MTY0MDc5NDY0OCwiYXpwIjoiZVZiTWlFaXdGQ21IOHdzYnN4YjQwM3hKWWJyaEpNd0ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvciIsImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.HU1_g9gWEQkMDo6piGvQZHWFpuQcnrR2wTa2u2X39dz4iPVrcvtw-XRla17czrw99yOLik-jRxWgcJ93fNYS5pxwO_fONWqvqdOl0zrd130z8fvF_Oui7zFZ3mmVmfMvxWSsa1_F1cTpgHAgXBy1Q_WajY5S_OUSouU1ZqMwtwBvcra2vmwXfT2ehyArz7GSKMzJT-NiCz4JTbbwi-Fw7QcuvVFyDh1aBlw3mkMGP6Yphhh5BiRMF9cgqfMVhlok3z4La4T-lKx05LcY_eXO-pvwo-1SOxZqCP3xOB3HqbJZwoBlBiz4pVV5lP4IMcCjanNA9aDknRQTNHgE83Ycyw'
+        self.executive_producer_token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ill1M0dwWU1QMjlNSTFSd1FkUF8tTCJ9.eyJpc3MiOiJodHRwczovL2Rldi1md3dmbWUtai51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjE5YTRjNmFhYjc5YzkwMDcxM2M1YTY4IiwiYXVkIjoiUm9sZXMiLCJpYXQiOjE2NDA3MDgzODcsImV4cCI6MTY0MDc5NDc4NywiYXpwIjoiZVZiTWlFaXdGQ21IOHdzYnN4YjQwM3hKWWJyaEpNd0ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvciIsImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.qiMdZNMaStSFm-zAVJQyc2Hcq1grqSgfqTypjTsPr8oWbzVMF6EdWfd4orW5fnt0keJ8F5QqiC8wSL65MMkGd5-kOw9DIc5BWIYJUsPkV0R7bXV3rZit6xWeZrlyD9E1MuD3u437xD2AfGh-fuV0rJstPteMTRsvW8uCLbKZIxB_NcLEtNTMuR8NrLuohAwk-o257TvtHWHrV37WOMkxIrbIJQJeDkIVU4w9PXaY4T9wNGunBegc1sNaNd1vhDRUULMNO5UADSSlWcQfY_CddqNJ-3u00OyY2gNTR-yOQ3zFoOmdBjQD7ouuZFJS6do9kK1Aixxw_JdEKZG7fHpv5g'
 
         # binds the app to the current context
         with self.app.app_context():
@@ -218,17 +218,17 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_delete_actor_correct_permission(self):
-        res = self.client().delete('/actors/28', headers={
+        res = self.client().delete('/actors/33', headers={
                 "Authorization":
                 "Bearer {}".format(self.casting_director_token)
             })
         data = json.loads(res.data)
 
-        actor = Actors.query.filter(Actors.id == 28).one_or_none()
+        actor = Actors.query.filter(Actors.id == 33).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], 28)
+        self.assertEqual(data['deleted'], 33)
         self.assertTrue(data['total_actors'])
         self.assertEqual(actor, None)
 
@@ -433,17 +433,17 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_delete_movie_correct_permission(self):
-        res = self.client().delete('/movies/45', headers={
+        res = self.client().delete('/movies/51', headers={
                 "Authorization":
                 "Bearer {}".format(self.executive_producer_token)
             })
         data = json.loads(res.data)
 
-        movie = Movies.query.filter(Movies.id == 45).one_or_none()
+        movie = Movies.query.filter(Movies.id == 51).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], 45)
+        self.assertEqual(data['deleted'], 51)
         self.assertTrue(data['total_movies'])
         self.assertEqual(movie, None)
 
