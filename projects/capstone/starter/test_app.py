@@ -218,17 +218,17 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_delete_actor_correct_permission(self):
-        res = self.client().delete('/actors/33', headers={
+        res = self.client().delete('/actors/34', headers={
                 "Authorization":
                 "Bearer {}".format(self.casting_director_token)
             })
         data = json.loads(res.data)
 
-        actor = Actors.query.filter(Actors.id == 33).one_or_none()
+        actor = Actors.query.filter(Actors.id == 34).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], 33)
+        self.assertEqual(data['deleted'], 34)
         self.assertTrue(data['total_actors'])
         self.assertEqual(actor, None)
 
@@ -433,17 +433,17 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_delete_movie_correct_permission(self):
-        res = self.client().delete('/movies/51', headers={
+        res = self.client().delete('/movies/52', headers={
                 "Authorization":
                 "Bearer {}".format(self.executive_producer_token)
             })
         data = json.loads(res.data)
 
-        movie = Movies.query.filter(Movies.id == 51).one_or_none()
+        movie = Movies.query.filter(Movies.id == 52).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], 51)
+        self.assertEqual(data['deleted'], 52)
         self.assertTrue(data['total_movies'])
         self.assertEqual(movie, None)
 

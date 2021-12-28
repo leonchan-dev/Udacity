@@ -283,4 +283,4 @@ db_drop_and_create_all()
 create_dummy_data()
 ```
 
-Once these have been entered, your database on Heroku should be populated and can be checked by clicking on the database inside Heroku to see its information.
+Once these have been entered, your database on Heroku should be populated and can be checked by clicking on the database inside Heroku to see its information and if it has been populated.
