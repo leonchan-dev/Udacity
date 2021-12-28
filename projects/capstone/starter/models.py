@@ -11,7 +11,7 @@ migrate = Migrate(app, db)
 
 DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')
 DB_USER = os.getenv('DB_USER', 'postgres')
-DB_PASSWORD = os.getenv('DB_PASSWORD', 'Projecta2008')
+DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 DB_NAME = os.getenv('DB_NAME', 'castingagency')
 DB_PATH = os.getenv('DATABASE_PATH_1','postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME))
 db = SQLAlchemy()
