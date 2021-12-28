@@ -13,7 +13,7 @@ DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')
 DB_USER = os.getenv('DB_USER', 'postgres')
 DB_PASSWORD = os.getenv('DB_PASSWORD', 'Projecta2008')
 DB_NAME = os.getenv('DB_NAME', 'castingagency')
-DB_PATH = os.getenv('postgresql://akpvbtmdrgitgv:679d1bb6ad4540c6177efab3d8004a8edc4580217a58904acf8ef00efb184a6a@ec2-3-218-158-102.compute-1.amazonaws.com:5432/d9gb3vss8tob89','postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME))
+DB_PATH = os.getenv('DATABASE_URL','postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME))
 db = SQLAlchemy()
 
 
